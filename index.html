@@ -3,121 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KK Holiday Fuck Them Picks Tracker</title>
+    <title>RFL Dynasty Draft Tracker</title>
     <style>
+        /* Base Theme matching the screenshot */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0b1320; /* Deep navy background */
+            color: #94a3b8; /* Muted light blue/gray text */
             margin: 0;
             padding: 20px;
         }
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 5px;
+
+        /* Title Styling */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 15px;
         }
-        .status {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-            color: #aaaaaa;
+
+        h1 {
+            margin: 0;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-style: italic;
+            letter-spacing: 1px;
+            font-size: 2.2em;
+            text-transform: uppercase;
         }
         
+        .title-cyan { color: #00e5ff; }
+        .title-orange { color: #ff4b4b; }
+
+        .status-pill {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-pill::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* Tally Counters */
         .counter-container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
         }
+        
         .counter-box {
-            background-color: #1e1e24;
-            border: 1px solid #333333;
-            border-radius: 8px;
-            padding: 15px 25px;
-            text-align: center;
-            min-width: 200px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background-color: #10192b; /* Dark panel background */
+            border: 1px solid #1e3a8a;
+            border-radius: 6px;
+            padding: 15px 20px;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
         .counter-label {
-            font-size: 0.9em;
+            font-size: 0.75em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #bbbbbb;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
+
         .kicker-count {
-            color: #4ade80;
-            font-size: 2.5em;
+            color: #00e5ff; /* Cyan for 2026 */
+            font-size: 2em;
             font-weight: bold;
+            font-family: monospace;
         }
+        
         .defense-count {
-            color: #f87171;
-            font-size: 2.5em;
+            color: #ff4b4b; /* Orange/Red for 2027 */
+            font-size: 2em;
             font-weight: bold;
+            font-family: monospace;
         }
 
+        /* Search Bar */
         .search-container {
-            text-align: center;
-            margin-bottom: 20px;
+            max-width: 1000px;
+            margin: 0 auto 15px auto;
         }
+        
         #search-input {
-            padding: 12px 20px;
+            padding: 10px 15px;
             width: 100%;
-            max-width: 400px;
-            border-radius: 25px;
-            border: 1px solid #444;
-            background-color: #1e1e24;
-            color: #fff;
-            font-size: 1em;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            max-width: 300px;
+            border-radius: 6px;
+            border: 1px solid #1e3a8a;
+            background-color: #0b1320;
+            color: #f8fafc;
+            font-size: 0.9em;
             outline: none;
+            transition: border-color 0.2s;
         }
+        
         #search-input:focus {
-            border-color: #888;
+            border-color: #00e5ff;
+        }
+        
+        #search-input::placeholder {
+            color: #475569;
         }
 
+        /* Table Styles */
         .table-container {
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
-            border-radius: 8px;
+            border-radius: 6px;
+            border: 1px solid #1e3a8a;
+            background-color: #10192b;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #1e1e24;
         }
+        
         th, td {
-            padding: 12px 15px;
+            padding: 12px 20px;
             text-align: left;
-            border: 1px solid #333333;
+            border-bottom: 1px solid #1e293b;
         }
+        
         th {
-            background-color: #282a36;
-            color: #ffffff;
+            background-color: #0b1320;
+            color: #e2e8f0;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
             font-weight: bold;
+            border-bottom: 1px solid #1e3a8a;
         }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
         tr:hover {
-            background-color: #2a2d3d;
+            background-color: #1e293b;
         }
-        .kicker {
-            color: #4ade80; 
-            font-weight: bold;
+        
+        /* Highlighted Text */
+        .team-name {
+            color: #f8fafc;
+            font-weight: 500;
         }
-        .defense {
-            color: #f87171; 
-            font-weight: bold;
+        
+        .kicker { color: #00e5ff; font-weight: bold; }
+        .defense { color: #ff4b4b; font-weight: bold; }
+        
+        .rookie-pick {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 1.1em;
+            color: #f8fafc;
         }
+
     </style>
 </head>
 <body>
 
-    <h1>RFL Dynasty Draft Tracker</h1>
-    <div class="status" id="status">Connecting to Sleeper API...</div>
+    <div class="header-container">
+        <h1><span class="title-cyan">RFL DYNASTY</span> <span class="title-orange">DRAFT TRACKER</span></h1>
+        <div class="status-pill" id="status">Connecting...</div>
+    </div>
 
     <div class="counter-container">
         <div class="counter-box">
@@ -212,7 +290,6 @@
                     picks = []; 
                 }
 
-                // FIX 1: Sort the draft picks sequentially by overall pick number
                 picks.sort((a, b) => a.pick_no - b.pick_no);
                 
                 let kCount = 0;
@@ -226,30 +303,29 @@
                     if (position === 'K' || position === 'DEF') {
                         const teamName = await fetchUsername(pick.picked_by);
                         
-                        // FIX 2: Calculate actual pick within the round using overall pick_no (12-team math)
                         const pickInRound = ((pick.pick_no - 1) % 12) + 1;
-                        const selectionStr = `Round ${pick.round}, Pick ${pickInRound}`;
+                        const selectionStr = `Rd ${pick.round} - Pk ${pickInRound}`;
                         
-                        let pick2026 = "";
-                        let pick2027 = "";
+                        let pick2026 = "-";
+                        let pick2027 = "-";
                         let posClass = "";
                         let posLabel = "";
                         
                         if (position === 'K') {
                             kCount++;
-                            pick2026 = calculateRookiePick(kCount);
+                            pick2026 = `<span class="rookie-pick">${calculateRookiePick(kCount)}</span>`;
                             posClass = "kicker";
                             posLabel = "Kicker";
                         } else if (position === 'DEF') {
                             defCount++;
-                            pick2027 = calculateRookiePick(defCount);
+                            pick2027 = `<span class="rookie-pick">${calculateRookiePick(defCount)}</span>`;
                             posClass = "defense";
                             posLabel = "Defense";
                         }
                         
-                        rows.push(`
+                        rows.unshift(`
                             <tr>
-                                <td>${teamName}</td>
+                                <td class="team-name">${teamName}</td>
                                 <td>${selectionStr}</td>
                                 <td class="${posClass}">${posLabel}</td>
                                 <td>${pick2026}</td>
@@ -266,17 +342,20 @@
                 if (rows.length > 0) {
                     tbody.innerHTML = rows.join("");
                 } else {
-                    tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Waiting for the first Kicker or Defense to be selected...</td></tr>";
+                    tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; padding: 30px;'>Waiting for the first Kicker or Defense to be selected...</td></tr>";
                 }
                 
                 applySearchFilter();
 
                 const now = new Date();
-                statusEl.innerText = `Last updated: ${now.toLocaleTimeString()} (Polling every 5 seconds)`;
+                statusEl.innerHTML = `Live: ${now.toLocaleTimeString()}`;
 
             } catch (error) {
                 console.error("Error fetching draft data:", error);
-                statusEl.innerText = "Error connecting to Sleeper API. Check console for details.";
+                statusEl.innerHTML = "Connection Error";
+                statusEl.style.color = "#ff4b4b";
+                statusEl.style.borderColor = "#ff4b4b";
+                statusEl.style.backgroundColor = "rgba(255, 75, 75, 0.1)";
             }
         }
 
